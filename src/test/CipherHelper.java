@@ -23,7 +23,7 @@ public class CipherHelper {
     private static final int HASHING_ITERATIONS = 400000;
 
     /**
-     * Encrypts the specified object with the provided secret key.
+     * Encrypts the specified byte stream with the provided secret key.
      *
      * @param byteStream the byte stream to be encrypted
      * @param key the secret key for encryption
@@ -52,9 +52,7 @@ public class CipherHelper {
         }
         if (cipher != null && hashedKey != null) {
             try {
-                cipher.init(Cipher.ENCRYPT_MODE,
-                        new SecretKeySpec(hashedKey, "AES"));
-                LOGGER.log(Level.INFO, "Encrypt operation success");
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(hashedKey, "AES"));
             } catch (InvalidKeyException e) {
                 LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
             }
@@ -62,6 +60,7 @@ public class CipherHelper {
         if (cipher != null) {
             try {
                 b = cipher.doFinal(byteStream);
+                LOGGER.log(Level.INFO, "Encrypt operation success");
             } catch (IllegalBlockSizeException | BadPaddingException e) {
                 LOGGER.log(Level.SEVERE, "Failed to encrypt because of bad data length or padding");
             }
@@ -99,9 +98,7 @@ public class CipherHelper {
         }
         if (cipher != null && hashedKey != null) {
             try {
-                cipher.init(Cipher.DECRYPT_MODE,
-                        new SecretKeySpec(hashedKey, "AES"));
-                LOGGER.log(Level.INFO, "Decrypt operation success");
+                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(hashedKey, "AES"));
             } catch (InvalidKeyException e) {
                 LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
             }
@@ -109,6 +106,7 @@ public class CipherHelper {
         if (cipher != null) {
             try {
                 b = cipher.doFinal(byteStream);
+                LOGGER.log(Level.INFO, "Decrypt operation success");
             } catch (IllegalBlockSizeException | BadPaddingException e) {
                 LOGGER.log(Level.SEVERE, "Failed to decrypt because of incorrect secret key");
             }
