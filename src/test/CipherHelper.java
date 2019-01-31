@@ -12,9 +12,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * Helper methods for AES-256 encryption and decryption. TODO: salts, more
- * hashing iterations (possibly something more secure than sha as well), fix
- * dereferencing of null pointers
+ * Helper methods for AES-256 encryption and decryption. TODO: salts
  *
  * @author Dimitri Lialios 01/23/2019
  */
@@ -22,15 +20,16 @@ public class CipherHelper {
 
     private static final Logger LOGGER = LoggerSetup.initLogger(CipherHelper.class.getName(),
             CipherHelper.class.getSimpleName() + ".log");
+    private static final int HASHING_ITERATIONS = 400000;
 
     /**
      * Encrypts the specified object with the provided secret key.
      *
-     * @param o the object to be encrypted
+     * @param byteStream the byte stream to be encrypted
      * @param key the secret key for encryption
      * @return the object in an encrypted byte stream
      */
-    public static byte[] encrypt(Object o, String key) {
+    public static byte[] encrypt(byte[] byteStream, String key) {
         MessageDigest md = null;
         Cipher cipher = null;
         byte[] b = null;
@@ -44,17 +43,28 @@ public class CipherHelper {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             LOGGER.log(Level.SEVERE, "Unsupported encryption or padding algorithm. This should not have happened");
         }
-        try {
-            cipher.init(Cipher.ENCRYPT_MODE,
-                    new SecretKeySpec(md.digest(StreamHelper.writeToByteArray(key)), "AES"));
-            LOGGER.log(Level.INFO, "Encrypt operation success");
-        } catch (InvalidKeyException e) {
-            LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
+        byte[] hashedKey = null;
+        if (md != null) {
+            hashedKey = md.digest(StreamHelper.writeToByteArray(key));
+            for (int i = 0; i < HASHING_ITERATIONS - 1; i++) {
+                hashedKey = md.digest(hashedKey);
+            }
         }
-        try {
-            b = cipher.doFinal(StreamHelper.writeToByteArray(o));
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
-            LOGGER.log(Level.SEVERE, "Failed to encrypt because of bad data length or padding");
+        if (cipher != null && hashedKey != null) {
+            try {
+                cipher.init(Cipher.ENCRYPT_MODE,
+                        new SecretKeySpec(hashedKey, "AES"));
+                LOGGER.log(Level.INFO, "Encrypt operation success");
+            } catch (InvalidKeyException e) {
+                LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
+            }
+        }
+        if (cipher != null) {
+            try {
+                b = cipher.doFinal(byteStream);
+            } catch (IllegalBlockSizeException | BadPaddingException e) {
+                LOGGER.log(Level.SEVERE, "Failed to encrypt because of bad data length or padding");
+            }
         }
         return b;
     }
@@ -80,17 +90,28 @@ public class CipherHelper {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             LOGGER.log(Level.SEVERE, "Unsupported encryption or padding algorithm. This should not have happened");
         }
-        try {
-            cipher.init(Cipher.DECRYPT_MODE,
-                    new SecretKeySpec(md.digest(StreamHelper.writeToByteArray(key)), "AES"));
-            LOGGER.log(Level.INFO, "Decrypt operation success");
-        } catch (InvalidKeyException e) {
-            LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
+        byte[] hashedKey = null;
+        if (md != null) {
+            hashedKey = md.digest(StreamHelper.writeToByteArray(key));
+            for (int i = 0; i < HASHING_ITERATIONS - 1; i++) {
+                hashedKey = md.digest(hashedKey);
+            }
         }
-        try {
-            b = cipher.doFinal(byteStream);
-        } catch (IllegalBlockSizeException | BadPaddingException e) {
-            LOGGER.log(Level.SEVERE, "Failed to decrypt because of incorrect secret key");
+        if (cipher != null && hashedKey != null) {
+            try {
+                cipher.init(Cipher.DECRYPT_MODE,
+                        new SecretKeySpec(hashedKey, "AES"));
+                LOGGER.log(Level.INFO, "Decrypt operation success");
+            } catch (InvalidKeyException e) {
+                LOGGER.log(Level.SEVERE, "Failed to initialize cipher because of bad AES secret key");
+            }
+        }
+        if (cipher != null) {
+            try {
+                b = cipher.doFinal(byteStream);
+            } catch (IllegalBlockSizeException | BadPaddingException e) {
+                LOGGER.log(Level.SEVERE, "Failed to decrypt because of incorrect secret key");
+            }
         }
         return b;
     }
