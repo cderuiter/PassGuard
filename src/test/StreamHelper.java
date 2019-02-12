@@ -13,6 +13,10 @@ import java.util.logging.Logger;
 
 /**
  * Helper methods for serializable classes.
+ * NOTE: Object serialization in Java requires a class to implement
+ *       the java.io.Serializable interface. "The serialization interface has 
+ *       no methods or fields and serves only to identify the semantics 
+ *       of being serializable."
  *
  * @author Dimitri Lialios 01/23/2019
  */
@@ -26,7 +30,7 @@ public class StreamHelper {
      *
      * @param <T> generic type
      * @param obj the object to be written to a byte array
-     * @return the byte array representation of the object
+     * @return    the byte array representation of the object
      */
     public static <T> byte[] writeToByteArray(T obj) {
         ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
@@ -57,8 +61,8 @@ public class StreamHelper {
     /**
      * Writes a generic type object to the file specified.
      *
-     * @param <T> generic type
-     * @param obj the object to be written to a file
+     * @param <T>      generic type
+     * @param obj      the object to be written to a file
      * @param filePath the serialized object file path
      */
     public static <T> void writeToFile(T obj, String filePath) {
@@ -94,8 +98,8 @@ public class StreamHelper {
     /**
      * Produces an object from the specified byte array.
      *
-     * @param buf the byte array representation of the object
-     * @return the object contained in the byte array
+     * @param buf  the byte array representation of the object
+     * @return     the object contained in the byte array
      */
     public static Object readFromByteArray(byte[] buf) {
         ByteArrayInputStream bytesIn = new ByteArrayInputStream(buf);
@@ -130,7 +134,7 @@ public class StreamHelper {
      * Reads an object from the file specified.
      *
      * @param filePath the serialized object file path
-     * @return the object contained in the serialized file
+     * @return         the object contained in the serialized file
      */
     public static Object readFromFile(String filePath) {
         FileInputStream fileIn = null;

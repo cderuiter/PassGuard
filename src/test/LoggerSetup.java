@@ -15,9 +15,9 @@ public final class LoggerSetup {
     /**
      * Sets up a logger whose output will be written to a file.
      *
-     * @param className the name of the class this logger will be used in
+     * @param className    the name of the class this logger will be used in
      * @param logFileTitle the title of the log file that will be created
-     * @return the logger object to be stored in this class
+     * @return             the logger object to be stored in this class
      */
     public static Logger initLogger(String className, String logFileTitle) {
         Logger logger = Logger.getLogger(className);
