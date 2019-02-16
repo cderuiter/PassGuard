@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="450.0" maxWidth="800.0" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardMainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <VBox prefHeight="374.0" prefWidth="525.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox spacing="10.0">
+               <children>
+                  <TextField fx:id="searchAccountTextField" prefHeight="39.0" prefWidth="338.0" promptText="Search for Account Name..." />
+                  <Button fx:id="searchAccountButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="171.0" text="Search" />
+               </children>
+               <padding>
+                  <Insets bottom="8.0" right="8.0" top="8.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="accountTable">
+              <columns>
+                <TableColumn fx:id="accountColumn" prefWidth="102.0" text="Account" />
+                <TableColumn fx:id="usernameColumn" prefWidth="122.0" text="Username" />
+                  <TableColumn fx:id="passwordColumn" prefWidth="127.0" text="Password" />
+                  <TableColumn fx:id="notesColumn" prefWidth="165.0" text="Notes" />
+              </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="8.0" />
+         </padding>
+      </VBox>
+   </left>
+   <right>
+      <AnchorPane prefHeight="411.0" prefWidth="264.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="addAccountButton" layoutX="33.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleAddAccountButton" prefHeight="39.0" prefWidth="200.0" text="Add Account" />
+            <Button fx:id="retrieveAccountButton" layoutX="33.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleRetrieveAccountInfoButton" prefHeight="39.0" prefWidth="201.0" text="Retrieve Account Info" />
+            <Button fx:id="removeAccountButton" layoutX="32.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveAccountButton" prefHeight="39.0" prefWidth="200.0" text="Remove Account" />
+            <Button fx:id="editAccountButton" layoutX="32.0" layoutY="151.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="200.0" text="Edit Account" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

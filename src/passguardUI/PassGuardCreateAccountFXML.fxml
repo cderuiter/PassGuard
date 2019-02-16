@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="600.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardCreateAccountController">
+   <children>
+      <Button fx:id="createAccountButton" layoutX="46.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleCreateAccountButton" prefHeight="39.0" prefWidth="236.0" text="Create Account" />
+      <Button fx:id="cancelButton" layoutX="320.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="39.0" prefWidth="236.0" text="Cancel" />
+      <Label layoutX="46.0" layoutY="54.0" text="Username:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="126.0" text="Password:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="200.0" text="Retype Password:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextField" layoutX="164.0" layoutY="48.0" prefHeight="39.0" prefWidth="401.0" />
+      <PasswordField fx:id="passwordField" layoutX="164.0" layoutY="120.0" prefHeight="39.0" prefWidth="401.0" />
+      <PasswordField fx:id="retypePasswordField" layoutX="209.0" layoutY="194.0" prefHeight="39.0" prefWidth="357.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="366.0" prefWidth="583.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardRetrieveAccountInfoController">
+   <children>
+      <Label layoutX="25.0" layoutY="38.0" text="Account Name:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="103.0" text="Username:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="174.0" text="Password:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="247.0" text="Notes:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label fx:id="accountNameLabel" layoutX="172.0" layoutY="30.0" prefHeight="42.0" prefWidth="393.0" style="-fx-border-color: #000000;">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+      <Label fx:id="usernameLabel" layoutX="172.0" layoutY="95.0" prefHeight="42.0" prefWidth="393.0" style="-fx-border-color: #000000;">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+      <Label fx:id="passwordLabel" layoutX="172.0" layoutY="166.0" prefHeight="42.0" prefWidth="289.0" style="-fx-border-color: #000000;">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+      <Button fx:id="okButton" layoutX="27.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleOKButton" prefHeight="42.0" prefWidth="113.0" text="OK" />
+      <Label fx:id="notesLabel" alignment="TOP_LEFT" layoutX="172.0" layoutY="240.0" prefHeight="107.0" prefWidth="393.0" style="-fx-border-color: #000000;" wrapText="true">
+         <padding>
+            <Insets left="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <Button fx:id="copyButton" layoutX="477.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleCopyButton" prefHeight="39.0" prefWidth="87.0" text="Copy" />
+   </children>
+</AnchorPane>

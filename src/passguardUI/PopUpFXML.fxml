@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="294.0" style="-fx-background-color: #f0f8ff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="passguardUI.PopUpController">
+   <children>
+      <Button fx:id="okButton" layoutX="86.0" layoutY="86.0" mnemonicParsing="false" onAction="#handleOKButton" prefHeight="39.0" prefWidth="122.0" text="OK" />
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="32.0" layoutY="29.0" prefHeight="39.0" prefWidth="230.0" text="Label">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

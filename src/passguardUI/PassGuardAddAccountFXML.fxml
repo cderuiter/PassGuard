@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardAddAccountController">
+   <children>
+      <Label layoutX="21.0" layoutY="20.0" text="Account:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="65.0" text="Username:">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="109.0" text="Password:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="155.0" text="Re-Enter Password:">
+         <padding>
+            <Insets left="4.0" />
+         </padding>
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="276.0" text="Notes:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <TextField fx:id="accountTextField" layoutX="114.0" layoutY="14.0" prefHeight="39.0" prefWidth="414.0" promptText="Enter Account Name..." />
+      <TextField fx:id="usernameTextField" layoutX="114.0" layoutY="59.0" prefHeight="39.0" prefWidth="414.0" promptText="Enter Username..." />
+      <PasswordField fx:id="passwordTextField" layoutX="114.0" layoutY="103.0" prefHeight="39.0" prefWidth="414.0" promptText="Enter Password..." />
+      <PasswordField fx:id="retypePasswordTextField" layoutX="184.0" layoutY="149.0" prefHeight="39.0" prefWidth="344.0" promptText="Retype the password..." />
+      <Button fx:id="addButton" layoutX="87.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="39.0" prefWidth="178.0" text="Add" />
+      <Button fx:id="closeButton" layoutX="307.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleCloseButton" prefHeight="39.0" prefWidth="178.0" text="Close" />
+      <Button fx:id="generatePasswordButton" layoutX="367.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleGeneratePasswordButton" prefHeight="39.0" prefWidth="161.0" text="Generate Password" />
+      <Label layoutX="14.0" layoutY="204.0" prefHeight="58.0" prefWidth="92.0" text="Password Generator" wrapText="true">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <CheckBox layoutX="114.0" layoutY="204.0" mnemonicParsing="false" text="≥1 Number" />
+      <CheckBox layoutX="113.0" layoutY="239.0" mnemonicParsing="false" text="≥1 Upper Case" />
+      <CheckBox layoutX="238.0" layoutY="204.0" mnemonicParsing="false" text="≥1 Special Char" />
+      <CheckBox layoutX="238.0" layoutY="239.0" mnemonicParsing="false" text="≥1 Lower Case" />
+      <TextArea fx:id="notesTextArea" layoutX="113.0" layoutY="276.0" prefHeight="66.0" prefWidth="414.0" promptText="Enter any notes relevant to the account..." wrapText="true" />
+   </children>
+</AnchorPane>
