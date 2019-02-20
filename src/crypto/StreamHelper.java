@@ -1,5 +1,6 @@
-package test;
+package crypto;
 
+import logger.LoggerSetup;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -8,20 +9,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Helper methods for serializable classes.
- * NOTE: Object serialization in Java requires a class to implement
- *       the java.io.Serializable interface. "The serialization interface has 
- *       no methods or fields and serves only to identify the semantics 
- *       of being serializable."
+ * Helper methods for serializable classes. 
+ * NOTE: Object serialization in Java requires a class to implement 
+ *       the java.io.Serializable interface. "The serialization interface has no methods 
+ *       or fields and serves only to identify the semantics of being serializable."
  *
  * @author Dimitri Lialios 01/23/2019
  */
 public class StreamHelper {
 
+    /**
+     * Makes available a logger whose output is written to a file that is the
+     * same name as this class.
+     */    
     private static final Logger LOGGER = LoggerSetup.initLogger(StreamHelper.class.getName(),
             StreamHelper.class.getSimpleName() + ".log");
 
@@ -98,8 +105,8 @@ public class StreamHelper {
     /**
      * Produces an object from the specified byte array.
      *
-     * @param buf  the byte array representation of the object
-     * @return     the object contained in the byte array
+     * @param buf the byte array representation of the object
+     * @return    the object contained in the byte array
      */
     public static Object readFromByteArray(byte[] buf) {
         ByteArrayInputStream bytesIn = new ByteArrayInputStream(buf);
@@ -168,6 +175,38 @@ public class StreamHelper {
             }
         }
         return obj;
+    }
+
+    /**
+     * Produces a string from the specified byte array.
+     *
+     * @param b the byte array to be converted to a string
+     * @return  the string representation of the byte array
+     */
+    public static String toByteString(byte[] b) {
+        return Arrays.toString(b);
+    }
+
+    /**
+     * Produces a byte array from the specified string.
+     *
+     * @param s the string to be converted to a byte array
+     * @return  the byte array representation of the string
+     */
+    public static byte[] toByteArray(String s) {
+        Scanner scan = new Scanner(s);
+        ArrayList<String> tokens = new ArrayList<>();
+        String temp = scan.next();
+        tokens.add(temp.substring(1, temp.length() - 1));
+        while (scan.hasNext()) {
+            temp = scan.next();
+            tokens.add(temp.substring(0, temp.length() - 1));
+        }
+        byte[] b = new byte[tokens.size()];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = (byte) Integer.parseInt(tokens.get(i));
+        }
+        return b;
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package passguardUI;
+package passguardui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import SQLite.SQLiteHelper;
+import sqlite.SQLiteHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;

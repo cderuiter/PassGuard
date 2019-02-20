@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="366.0" prefWidth="583.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardRetrieveAccountInfoController">
+<AnchorPane id="AnchorPane" prefHeight="366.0" prefWidth="583.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardRetrieveAccountInfoController">
    <children>
       <Label layoutX="25.0" layoutY="38.0" text="Account Name:">
          <font>

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package passguardUI;
+package passguardui;
 
-import SQLite.SQLiteHelper;
+import sqlite.SQLiteHelper;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

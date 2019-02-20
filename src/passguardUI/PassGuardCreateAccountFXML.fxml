@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="600.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardUI.PassGuardCreateAccountController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="600.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardCreateAccountController">
    <children>
       <Button fx:id="createAccountButton" layoutX="46.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleCreateAccountButton" prefHeight="39.0" prefWidth="236.0" text="Create Account" />
       <Button fx:id="cancelButton" layoutX="320.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="39.0" prefWidth="236.0" text="Cancel" />

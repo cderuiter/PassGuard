@@ -1,4 +1,4 @@
-package test;
+package logger;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -23,7 +23,7 @@ public final class LoggerSetup {
         Logger logger = Logger.getLogger(className);
         logger.setUseParentHandlers(false);
         try {
-            FileHandler fHandler = new FileHandler(logFileTitle, true);
+            FileHandler fHandler = new FileHandler(logFileTitle);
             fHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fHandler);
         } catch (SecurityException | IOException e) {
