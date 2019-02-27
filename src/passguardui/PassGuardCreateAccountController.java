@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sqlite.SQLiteHelper;
+import sqlite.SQLitePassGuardLoginHelper;
+
 import java.io.IOException;
 import javafx.application.Platform;
 
@@ -73,6 +75,11 @@ public class PassGuardCreateAccountController implements Initializable {
             if(password.equals(retypePassword)){
                 SQLiteHelper.SQLLiteDatabaseConnection();
                 SQLiteHelper.createNewTable();
+                
+                
+                SQLitePassGuardLoginHelper.createNewAccountTable();
+                SQLitePassGuardLoginHelper.insertLoginInfo(username, password);
+                
         
                 //should add username and password that the user inputs to the database
         

@@ -3,6 +3,7 @@ package passguardui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,9 +17,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sqlite.SQLiteHelper;
+import sqlite.SQLitePassGuardLoginHelper;
 
 
 public class PassGuardLoginController implements Initializable {
+	
+	public static int currentUserID;
 
     @FXML
     private Button loginButton;
@@ -34,13 +39,15 @@ public class PassGuardLoginController implements Initializable {
         String username = usernameInput.getText();
         String password = passwordInput.getText();
         
-        if(true){//if the username and password are correct, then go to main UI
+        if(validateLogin(username, password)){ //if the username and password are correct, then go to main UI
             PassGuardMainController mainUI = new PassGuardMainController();
-            try{
-              mainUI.start();
-              Stage stage = (Stage) loginButton.getScene().getWindow();
-              stage.close();
-            }
+			try {
+				currentUserID = SQLitePassGuardLoginHelper.getUserID(username); //gets the currentUserID for the current user
+				mainUI.start();
+				Stage stage = (Stage) loginButton.getScene().getWindow();
+				stage.close();
+
+			}
             catch(Exception e){
                 Platform.exit();
             }  
@@ -82,6 +89,56 @@ public class PassGuardLoginController implements Initializable {
         catch(IOException e){
             Platform.exit();
         }
+    }
+    
+    /**
+     * @author cderuiter3
+     *
+     * This method accepts a username and password attempt,
+     * searches the sqllite db for the login credentials
+     * 
+     * @param username - attempted username
+     * @param password - attempted password
+     * 
+     * @return true if the username is in the database and the attempted password matches
+     * else false
+     */
+    
+    private boolean validateLogin(String username, String password) {
+    	ArrayList<String> Usernames = SQLitePassGuardLoginHelper.getAllLoginUserNames();
+    	if(Usernames.contains(username) && SQLitePassGuardLoginHelper.getPassword(username).equals(password)) {
+    	return true;
+    	}
+    	else {
+    		return false;
+    	}
+    	
+    }
+    
+    /**
+     * @author cderuiter3
+     *
+     * This method sets the currentUserID
+     * 
+     * @param UserID - the current user's UserID/Primary Key
+     * 
+     */
+    
+    public static void setCurrentUser(int UserID) {
+    	currentUserID = UserID;	
+    }
+    
+    /**
+     * @author cderuiter3
+     *
+     * This method gets the currentUserID
+     * 
+     * @return currentUserID - the current user's UserID/Primary Key
+     * 
+     */
+    public static int getCurrentUser() {
+    	return currentUserID;
+    	
     }
     
 }
