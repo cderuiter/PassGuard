@@ -21,6 +21,7 @@ import sqlite.SQLiteHelper;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import passwordgenerator.PasswordGenerator;
 
 /**
  * FXML Controller class

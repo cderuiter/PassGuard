@@ -17,7 +17,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sqlite.SQLiteHelper;
 import sqlite.SQLitePassGuardLoginHelper;
 
 
@@ -35,19 +34,18 @@ public class PassGuardLoginController implements Initializable {
     private PasswordField passwordInput;
     
     @FXML
-    private void handleLogInButton(ActionEvent event){
+    private void handleLogInButton(){
         String username = usernameInput.getText();
         String password = passwordInput.getText();
         
         if(validateLogin(username, password)){ //if the username and password are correct, then go to main UI
             PassGuardMainController mainUI = new PassGuardMainController();
-			try {
-				currentUserID = SQLitePassGuardLoginHelper.getUserID(username); //gets the currentUserID for the current user
-				mainUI.start();
-				Stage stage = (Stage) loginButton.getScene().getWindow();
-				stage.close();
-
-			}
+            try {
+                currentUserID = SQLitePassGuardLoginHelper.getUserID(username); //gets the currentUserID for the current user
+                mainUI.start();
+		Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.close();
+            }
             catch(Exception e){
                 Platform.exit();
             }  
@@ -58,7 +56,7 @@ public class PassGuardLoginController implements Initializable {
     }
     
     @FXML
-    private void handleCreateAccountButton(ActionEvent event){
+    private void handleCreateAccountButton(){
         PassGuardCreateAccountController createAccount = new PassGuardCreateAccountController();
         try{
             createAccount.start();
@@ -107,10 +105,10 @@ public class PassGuardLoginController implements Initializable {
     private boolean validateLogin(String username, String password) {
     	ArrayList<String> Usernames = SQLitePassGuardLoginHelper.getAllLoginUserNames();
     	if(Usernames.contains(username) && SQLitePassGuardLoginHelper.getPassword(username).equals(password)) {
-    	return true;
+            return true;
     	}
-    	else {
-    		return false;
+    	else{
+            return false;
     	}
     	
     }

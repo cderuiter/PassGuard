@@ -8,14 +8,12 @@ package passguardui;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,10 +21,10 @@ import javafx.stage.Stage;
 import sqlite.SQLiteHelper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 
 /**
@@ -126,13 +124,14 @@ public class PassGuardMainController implements Initializable {
     @FXML
     private void handleRetrieveAccountInfoButton(){
    
-        String accountName = accountTable.getSelectionModel().getSelectedItem().getAccount();
-        SQLiteHelper.SQLLiteDatabaseConnection();
-        String username = SQLiteHelper.getUsername(accountName);
-        String password = SQLiteHelper.getPassword(accountName);
-        String notes = SQLiteHelper.getNotes(accountName);
-        
         try{
+            String accountName = accountTable.getSelectionModel().getSelectedItem().getAccount();
+            SQLiteHelper.SQLLiteDatabaseConnection();
+            String username = SQLiteHelper.getUsername(accountName);
+            String password = SQLiteHelper.getPassword(accountName);
+            String notes = SQLiteHelper.getNotes(accountName);
+        
+            
             Stage window = new Stage();
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("PassGuardRetrieveAccountInfoFXML.fxml").openStream());
@@ -147,7 +146,22 @@ public class PassGuardMainController implements Initializable {
         catch(IOException e){
             System.out.println(e.getMessage());
         }
+        catch(RuntimeException e){ //used to catch if user does not have anything selected when pressing the button
+            //is there any need to do anything here, like give a pop up?
+        }
         
+    }
+    
+    @FXML
+    private void handleSearchAccountButton(){
+        String searchedAccount = searchAccountTextField.getText();
+        List<String> accountColumnData = new ArrayList();
+        for(AccountInfo data : accountTable.getItems()){
+            accountColumnData.add(accountColumn.getCellObservableValue(data).getValue());
+        }
+        int index = accountColumnData.indexOf(searchedAccount); //index = -1 if that string is not in the column
+        accountTable.getSelectionModel().select(index, accountColumn);
+        accountTable.scrollTo(index);
     }
     
 }

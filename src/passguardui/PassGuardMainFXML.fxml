@@ -36,7 +36,7 @@
             <HBox spacing="10.0">
                <children>
                   <TextField fx:id="searchAccountTextField" prefHeight="39.0" prefWidth="338.0" promptText="Search for Account Name..." />
-                  <Button fx:id="searchAccountButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="171.0" text="Search" />
+                  <Button fx:id="searchAccountButton" mnemonicParsing="false" onAction="#handleSearchAccountButton" prefHeight="42.0" prefWidth="171.0" text="Search" />
                </children>
                <padding>
                   <Insets bottom="8.0" right="8.0" top="8.0" />
