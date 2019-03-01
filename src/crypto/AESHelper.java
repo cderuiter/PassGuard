@@ -19,18 +19,17 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Helper methods for AES-256 encryption and decryption.
- * TODO: detecting a suitable # of iterations
  *
  * @author Dimitri Lialios 01/23/2019
  */
-public class CipherHelper {
+public class AESHelper {
 
     /**
      * Makes available a logger whose output is written to a file that is the
      * same name as this class.
      */
-    private static final Logger LOGGER = LoggerSetup.initLogger(CipherHelper.class.getName(),
-            CipherHelper.class.getSimpleName() + ".log");
+    private static final Logger LOGGER = LoggerSetup.initLogger(AESHelper.class.getName(),
+            AESHelper.class.getSimpleName() + ".log");
 
     /**
      * The number of hash function iterations that will be executed when
@@ -40,7 +39,8 @@ public class CipherHelper {
     private static final int PBKDF2_ITERATIONS = 20000;
 
     /**
-     * The size of the salt, in bytes, to be appended to a secret key before hashing.
+     * The size of the salt, in bytes, to be appended to a secret key before
+     * hashing.
      */
     private static final int SALT_SIZE = 8;
 
@@ -48,9 +48,9 @@ public class CipherHelper {
      * Encrypts the specified byte array with the provided secret key. 
      * NOTE: Do not use with low entropy secret keys.
      *
-     * @param byteArray  the byte array to be encrypted
-     * @param key        the secret key for encryption
-     * @return           the encrypted byte array
+     * @param byteArray the byte array to be encrypted
+     * @param key       the secret key for encryption
+     * @return          the encrypted byte array
      */
     public static byte[] encryptSHA_AES(byte[] byteArray, String key) {
 
@@ -121,9 +121,9 @@ public class CipherHelper {
     /**
      * Decrypts the specified byte array with the provided secret key.
      *
-     * @param byteArray  the byte array to be decrypted
-     * @param key        the secret key for decryption
-     * @return           the decrypted byte array or null if something went wrong
+     * @param byteArray the byte array to be decrypted
+     * @param key       the secret key for decryption
+     * @return          the decrypted byte array or null if something went wrong
      */
     public static byte[] decryptSHA_AES(byte[] byteArray, String key) {
 
@@ -191,12 +191,12 @@ public class CipherHelper {
     }
 
     /**
-     * Encrypts the specified byte array with the provided secret key.
+     * Encrypts the specified byte array with the provided secret key. 
      * NOTE: Use this with user passwords.
      *
-     * @param byteArray  the byte array to be encrypted
-     * @param key        the secret key for encryption
-     * @return           the encrypted byte array or null if something went wrong
+     * @param byteArray the byte array to be encrypted
+     * @param key       the secret key for encryption
+     * @return          the encrypted byte array or null if something went wrong
      */
     public static byte[] encryptPBKDF2_AES(byte[] byteArray, String key) {
 
@@ -268,9 +268,9 @@ public class CipherHelper {
     /**
      * Decrypts the specified byte array with the provided secret key.
      *
-     * @param byteArray  the byte array to be decrypted
-     * @param key        the secret key for decryption
-     * @return           the decrypted byte array or null if something went wrong
+     * @param byteArray the byte array to be decrypted
+     * @param key       the secret key for decryption
+     * @return          the decrypted byte array or null if something went wrong
      */
     public static byte[] decryptPBKDF2_AES(byte[] byteArray, String key) {
 

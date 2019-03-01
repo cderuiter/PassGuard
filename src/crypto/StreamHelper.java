@@ -179,6 +179,8 @@ public class StreamHelper {
 
     /**
      * Produces a string from the specified byte array.
+     * NOTE: THE RETURNED STRING IS A SEQUENCE OF BASE-10 INTEGERS
+     *       DO NOT USE THIS METHOD TO RECONSTRUCT A SERIALIZED STRING FROM A BYTE ARRAY
      *
      * @param b the byte array to be converted to a string
      * @return  the string representation of the byte array
@@ -189,6 +191,9 @@ public class StreamHelper {
 
     /**
      * Produces a byte array from the specified string.
+     * NOTE: THE RETURNED BYTE ARRAY IS NOT THE SERIALIZED REPRESENTATION OF THE ARGUMENT STRING
+     *       THE CHARACTERS OF THE STRING ARE ONLY PARSED INTO A BYTE ARRAY      
+     *       DO NOT USE THIS METHOD TO SERIALIZE A STRING INTO A BYTE ARRAY 
      *
      * @param s the string to be converted to a byte array
      * @return  the byte array representation of the string
