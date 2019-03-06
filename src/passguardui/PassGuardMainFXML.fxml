@@ -65,7 +65,7 @@
             <Button fx:id="addAccountButton" layoutX="33.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleAddAccountButton" prefHeight="39.0" prefWidth="200.0" text="Add Account" />
             <Button fx:id="retrieveAccountButton" layoutX="33.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleRetrieveAccountInfoButton" prefHeight="39.0" prefWidth="201.0" text="Retrieve Account Info" />
             <Button fx:id="removeAccountButton" layoutX="32.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveAccountButton" prefHeight="39.0" prefWidth="200.0" text="Remove Account" />
-            <Button fx:id="editAccountButton" layoutX="32.0" layoutY="151.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="200.0" text="Edit Account" />
+            <Button fx:id="editAccountButton" layoutX="32.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleEditAccountButton" prefHeight="39.0" prefWidth="200.0" text="Edit Account" />
          </children>
       </AnchorPane>
    </right>

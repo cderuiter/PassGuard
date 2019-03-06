@@ -91,9 +91,6 @@ public class PassGuardMainController implements Initializable {
     private static ObservableList<AccountInfo> getAccountsFromDB(){
         ArrayList<String> myAccounts = SQLiteHelper.getAllAccounts();
         for(String account : myAccounts){
-//            String username = SQLiteHelper.getUsername(account);
-//            String password = SQLiteHelper.getPassword(account);
-//            String notes = SQLiteHelper.getNotes(account);
             allAccounts.add(new AccountInfo(account, "**********", "**********", "**********"));
         }
         return allAccounts;
@@ -111,14 +108,49 @@ public class PassGuardMainController implements Initializable {
     }
     
     @FXML
+    private void handleEditAccountButton(){
+        try{
+            String accountName = accountTable.getSelectionModel().getSelectedItem().getAccount();
+            SQLiteHelper.SQLLiteDatabaseConnection();
+            String username = SQLiteHelper.getUsername(accountName);
+            String password = SQLiteHelper.getPassword(accountName);
+            String notes = SQLiteHelper.getNotes(accountName);
+        
+            
+            Stage window = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("PassGuardEditAccountInfoFXML.fxml").openStream());
+            Scene scene = new Scene(root);
+            PassGuardEditAccountInfoController editAccountInfoWindow = (PassGuardEditAccountInfoController) loader.getController();
+            editAccountInfoWindow.setCurrentInfo(accountName, username, password, notes);
+            window.setTitle("Edit Account Information");
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setScene(scene);
+            window.show();
+        }
+        catch(IOException | RuntimeException e){
+            
+        }
+    }
+    
+    
+    @FXML
     private void handleRemoveAccountButton(){
         
-        //need to actually remove these accounts from the database, so far this does not remove from the database
-        
+        SQLiteHelper.SQLLiteDatabaseConnection();
         ObservableList<AccountInfo> accountSelected, everyAccount;
-        everyAccount = accountTable.getItems();
-        accountSelected = accountTable.getSelectionModel().getSelectedItems();
-        accountSelected.forEach(everyAccount::remove);
+        String accountToDelete;
+        
+        try{
+           everyAccount = accountTable.getItems();
+            accountSelected = accountTable.getSelectionModel().getSelectedItems();
+            accountToDelete = accountTable.getSelectionModel().getSelectedItem().getAccount();
+            SQLiteHelper.deleteAccount(accountToDelete);
+            accountSelected.forEach(everyAccount::remove); 
+        }
+        catch(RuntimeException e){
+            
+        }
     }
     
     @FXML

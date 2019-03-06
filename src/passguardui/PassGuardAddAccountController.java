@@ -71,7 +71,7 @@ public class PassGuardAddAccountController implements Initializable {
         
         
         if(!AccountName.equals("") && !UserName.equals("") &&
-            !Password.equals("") && !retypePassword.equals("") && !Notes.equals(""))
+            !Password.equals("") && !retypePassword.equals(""))
         {
             if(Password.equals(retypePassword)){
                 SQLiteHelper.SQLLiteDatabaseConnection();

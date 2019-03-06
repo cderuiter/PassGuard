@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="583.0" style="-fx-background-color: #f0f8ff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="passguardui.PassGuardEditAccountInfoController">
+   <children>
+      <Label layoutX="26.0" layoutY="37.0" text="Account Name:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="102.0" text="Username:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="170.0" text="Password:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="238.0" text="Notes:">
+         <font>
+            <Font size="18.5" />
+         </font>
+      </Label>
+      <TextField fx:id="accountNameText" layoutX="180.0" layoutY="31.0" prefHeight="39.0" prefWidth="386.0" />
+      <TextField fx:id="usernameText" layoutX="180.0" layoutY="96.0" prefHeight="39.0" prefWidth="386.0" />
+      <TextField fx:id="passwordText" layoutX="180.0" layoutY="164.0" prefHeight="39.0" prefWidth="386.0" />
+      <TextArea fx:id="notesText" layoutX="180.0" layoutY="244.0" prefHeight="120.0" prefWidth="386.0" wrapText="true" />
+      <Button fx:id="updateButton" layoutX="43.0" layoutY="278.0" mnemonicParsing="false" onAction="#handleUpdateButton" prefHeight="39.0" prefWidth="93.0" text="Update" />
+      <Button fx:id="cancelButton" layoutX="43.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="39.0" prefWidth="93.0" text="Cancel" />
+   </children>
+</AnchorPane>

@@ -30,27 +30,11 @@
             <Font size="18.5" />
          </font>
       </Label>
-      <Label fx:id="accountNameLabel" layoutX="172.0" layoutY="30.0" prefHeight="42.0" prefWidth="393.0" style="-fx-border-color: #000000;">
-         <padding>
-            <Insets left="5.0" />
-         </padding>
-      </Label>
-      <Label fx:id="usernameLabel" layoutX="172.0" layoutY="95.0" prefHeight="42.0" prefWidth="393.0" style="-fx-border-color: #000000;">
-         <padding>
-            <Insets left="5.0" />
-         </padding>
-      </Label>
-      <Label fx:id="passwordLabel" layoutX="172.0" layoutY="166.0" prefHeight="42.0" prefWidth="289.0" style="-fx-border-color: #000000;">
-         <padding>
-            <Insets left="5.0" />
-         </padding>
-      </Label>
       <Button fx:id="okButton" layoutX="27.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleOKButton" prefHeight="42.0" prefWidth="113.0" text="OK" />
-      <Label fx:id="notesLabel" alignment="TOP_LEFT" layoutX="172.0" layoutY="240.0" prefHeight="107.0" prefWidth="393.0" style="-fx-border-color: #000000;" wrapText="true">
-         <padding>
-            <Insets left="5.0" top="5.0" />
-         </padding>
-      </Label>
       <Button fx:id="copyButton" layoutX="477.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleCopyButton" prefHeight="39.0" prefWidth="87.0" text="Copy" />
+      <TextArea fx:id="notesText" layoutX="172.0" layoutY="240.0" prefHeight="109.0" prefWidth="393.0" wrapText="true" />
+      <TextField fx:id="accountNameText" layoutX="172.0" layoutY="32.0" prefHeight="39.0" prefWidth="393.0" />
+      <TextField fx:id="usernameText" layoutX="172.0" layoutY="97.0" prefHeight="39.0" prefWidth="393.0" />
+      <TextField fx:id="passwordText" layoutX="172.0" layoutY="168.0" prefHeight="39.0" prefWidth="294.0" />
    </children>
 </AnchorPane>
