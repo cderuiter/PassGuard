@@ -69,7 +69,7 @@ public class SQLiteHelper {
 				+ SQLiteContract.UserInfo.COLUMN_ACCOUNT + " text NOT NULL,\n" 
 				+ SQLiteContract.UserInfo.COLUMN_USERNAME + " text NOT NULL,\n"
 				+ SQLiteContract.UserInfo.COLUMN_PASSWORD + " text NOT NULL,\n"
-				+ SQLiteContract.UserInfo.COLUMN_NOTES + " text NOT NULL\n,"
+				+ SQLiteContract.UserInfo.COLUMN_NOTES + " text\n," //can be null
 				+ SQLiteContract.UserInfo.COLUMN_USERID + " integer NOT NULL,\n" //this will match the primary id of the user in the login table
 		        + "FOREIGN KEY (" + SQLiteContract.UserInfo.COLUMN_USERID 
 		        + ") REFERENCES " + SQLiteContract.LoginInfo.TABLE_NAME +  "(" 
@@ -281,6 +281,59 @@ public class SQLiteHelper {
             System.out.println(e.getMessage());
         }
     }
+	
+	/**
+     * Deletes a specific account's information from the SQLite Database
+     *
+     * @param AccountName - Account name that is being deleted
+     *
+     */
+    public static void deleteAccount(String AccountName) {
+        
+    	String SQL_DELETE_ACCOUNT = 
+    			"DELETE FROM " + SQLiteContract.UserInfo.TABLE_NAME + 
+				" WHERE " + SQLiteContract.UserInfo.COLUMN_ACCOUNT + " = ?";
+    	
+    	 try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
+                 PreparedStatement pstmt = conn.prepareStatement(SQL_DELETE_ACCOUNT)) {
+         	
+             pstmt.setString(1, AccountName);
+             pstmt.executeUpdate();
+             
+         } catch (SQLException e) {
+         	LOGGER.log(Level.SEVERE, "Account not deleted");
+ 			LOGGER.log(Level.SEVERE, e.getMessage());
+             System.out.println(e.getMessage());
+         }
+     }
+        
+
+
+    
+    /**
+     * Deletes all of the user's information from the SQLite Database
+     *
+     *
+     */
+    public static void deleteProfile() {
+        
+    	String SQL_DELETE_ACCOUNT = 
+    			"DELETE FROM " + SQLiteContract.UserInfo.TABLE_NAME + 
+				" WHERE " + SQLiteContract.UserInfo.COLUMN_USERID + " = ?";
+    	
+    	 try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
+                 PreparedStatement pstmt = conn.prepareStatement(SQL_DELETE_ACCOUNT)) {
+         	
+             pstmt.setInt(1, PassGuardLoginController.getCurrentUser());
+             pstmt.executeUpdate();
+             
+         } catch (SQLException e) {
+         	LOGGER.log(Level.SEVERE, "Account not deleted");
+ 			LOGGER.log(Level.SEVERE, e.getMessage());
+             System.out.println(e.getMessage());
+         }
+        
+}
 	
 
 	
