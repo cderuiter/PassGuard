@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardAddAccountController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="550.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardAddAccountController">
    <children>
       <Label layoutX="21.0" layoutY="20.0" text="Account:">
          <font>
@@ -47,16 +51,18 @@
       <PasswordField fx:id="retypePasswordTextField" layoutX="184.0" layoutY="149.0" prefHeight="39.0" prefWidth="344.0" promptText="Retype the password..." />
       <Button fx:id="addButton" layoutX="87.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="39.0" prefWidth="178.0" text="Add" />
       <Button fx:id="closeButton" layoutX="307.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleCloseButton" prefHeight="39.0" prefWidth="178.0" text="Close" />
-      <Button fx:id="generatePasswordButton" layoutX="367.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleGeneratePasswordButton" prefHeight="39.0" prefWidth="161.0" text="Generate Password" />
+      <Button fx:id="generatePasswordButton" layoutX="378.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleGeneratePasswordButton" prefHeight="39.0" prefWidth="150.0" text="Generate Password" />
       <Label layoutX="14.0" layoutY="204.0" prefHeight="58.0" prefWidth="92.0" text="Password Generator" wrapText="true">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <CheckBox layoutX="114.0" layoutY="204.0" mnemonicParsing="false" text="≥1 Number" />
-      <CheckBox layoutX="113.0" layoutY="239.0" mnemonicParsing="false" text="≥1 Upper Case" />
-      <CheckBox layoutX="238.0" layoutY="204.0" mnemonicParsing="false" text="≥1 Special Char" />
-      <CheckBox layoutX="238.0" layoutY="239.0" mnemonicParsing="false" text="≥1 Lower Case" />
+      <CheckBox fx:id="specialCharCheckBox" layoutX="248.0" layoutY="214.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="117.0" text="Contains Special Characters" textAlignment="CENTER" wrapText="true">
+         <tooltip>
+            <Tooltip text="Characters: @%+\\/'!#$^?:,(){}[]~`-_." />
+         </tooltip></CheckBox>
       <TextArea fx:id="notesTextArea" layoutX="113.0" layoutY="276.0" prefHeight="66.0" prefWidth="414.0" promptText="Enter any notes relevant to the account..." wrapText="true" />
+      <Spinner fx:id="lengthSpinner" layoutX="161.0" layoutY="221.0" prefHeight="25.0" prefWidth="71.0" />
+      <Label layoutX="113.0" layoutY="225.0" text="Length:" />
    </children>
 </AnchorPane>

@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import sqlite.SQLiteHelper;
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import passwordgenerator.PasswordGenerator;
 
@@ -46,6 +49,10 @@ public class PassGuardAddAccountController implements Initializable {
     private PasswordField retypePasswordTextField;
     @FXML
     private TextArea notesTextArea;
+    @FXML
+    private Spinner lengthSpinner;
+    @FXML
+    private CheckBox specialCharCheckBox;
     
     
     public void start() throws Exception{
@@ -60,6 +67,17 @@ public class PassGuardAddAccountController implements Initializable {
         window.setScene(scene);
         window.show();
     }
+    
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //initialize the length Spinner
+        SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 20, 10); //min, max, default
+        this.lengthSpinner.setValueFactory(lengthFactory);
+        
+    }  
     
     @FXML
     private void handleAddButton(){
@@ -101,7 +119,11 @@ public class PassGuardAddAccountController implements Initializable {
     
     @FXML
     private void handleGeneratePasswordButton(){
-        
+        int passwordLength = (Integer) lengthSpinner.getValue();
+        boolean allowSpecial = specialCharCheckBox.isSelected();
+        String password = new String(PasswordGenerator.PasswordGenerator(passwordLength, allowSpecial));
+        passwordTextField.setText(password);
+        retypePasswordTextField.setText(password);
     }
     
     private void popUpError(String message){
@@ -122,12 +144,6 @@ public class PassGuardAddAccountController implements Initializable {
         }
     }
     
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+     
     
 }
