@@ -5,22 +5,19 @@
  */
 package passguardui;
 
-import sqlite.SQLiteHelper;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.stage.Modality;
+//import javafx.scene.input.Clipboard;
+//import javafx.scene.input.ClipboardContent;
+
+
 import javafx.stage.Stage;
 
 /**
@@ -43,6 +40,8 @@ public class PassGuardRetrieveAccountInfoController{
     @FXML
     private Button copyButton;
     
+    
+    
     public void setInfo(String account, String username, String password, String notes) {       
         accountNameText.setText(account);
         accountNameText.setEditable(false);
@@ -59,11 +58,16 @@ public class PassGuardRetrieveAccountInfoController{
     
     @FXML
     private void handleCopyButton(){
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-        content.putString(passwordText.getText());
-        clipboard.setContent(content); 
+
+        StringSelection selection = new StringSelection(passwordText.getText());
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
+        ClipboardWaitThread waitThread = new ClipboardWaitThread();
+        waitThread.start();
+        
     }
+    
+    
     
     @FXML
     private void handleOKButton(){
