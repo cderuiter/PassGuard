@@ -5,9 +5,12 @@ package sqlite;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import crypto.AESHelper;
+import crypto.StreamHelper;
 import logger.LoggerSetup;
 import passguardui.PassGuardLoginController;
 
@@ -70,7 +73,7 @@ public class SQLiteHelper {
 				+ SQLiteContract.UserInfo.COLUMN_USERNAME + " text NOT NULL,\n"
 				+ SQLiteContract.UserInfo.COLUMN_PASSWORD + " text NOT NULL,\n"
 				+ SQLiteContract.UserInfo.COLUMN_NOTES + " text\n," //can be null
-				+ SQLiteContract.UserInfo.COLUMN_USERID + " integer NOT NULL,\n" //this will match the primary id of the user in the login table
+				+ SQLiteContract.UserInfo.COLUMN_USERID + " text NOT NULL,\n" //this will match the primary id of the user in the login table
 		        + "FOREIGN KEY (" + SQLiteContract.UserInfo.COLUMN_USERID 
 		        + ") REFERENCES " + SQLiteContract.LoginInfo.TABLE_NAME +  "(" 
 		        + SQLiteContract.LoginInfo._ID + ")"
@@ -100,20 +103,27 @@ public class SQLiteHelper {
 	 *
 	 */
 	public static void insertInfo(String AccountName, String UserName, String Password, String Notes) {
-        String SQL_INSERT_USERINFO = "INSERT INTO UserInfo("
+       
+		String SQL_INSERT_USERINFO = "INSERT INTO UserInfo("
         		+ SQLiteContract.UserInfo.COLUMN_ACCOUNT + ","
         		+ SQLiteContract.UserInfo.COLUMN_USERNAME + ","
         		+ SQLiteContract.UserInfo.COLUMN_PASSWORD + ","
         		+ SQLiteContract.UserInfo.COLUMN_NOTES + ","
         		+ SQLiteContract.UserInfo.COLUMN_USERID + ") VALUES(?,?,?,?,?)";
+        
+		
+		//String encryptedAccountName = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(AccountName), PassGuardLoginController.getCurrentUser()));;
+		String encryptedUserName =   StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(UserName), PassGuardLoginController.getCurrentUser()));
+        String encryptedPassword = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(Password), PassGuardLoginController.getCurrentUser()));
+        String encryptedNotes = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(Notes), PassGuardLoginController.getCurrentUser()));
  
         try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
         	PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_USERINFO)) {
             pstmt.setString(1, AccountName);
-            pstmt.setString(2, UserName);
-            pstmt.setString(3, Password);
-            pstmt.setString(4, Notes);
-            pstmt.setInt(5, PassGuardLoginController.getCurrentUser()); //this gets the primary key of the current user
+            pstmt.setString(2, encryptedUserName);
+            pstmt.setString(3, encryptedPassword);
+            pstmt.setString(4, encryptedNotes);
+            pstmt.setString(5, PassGuardLoginController.getCurrentUser()); //this gets the primary key of the current user
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -138,7 +148,7 @@ public class SQLiteHelper {
 
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_ALL_ACCOUNTS)) {
-			pstmt.setInt(1, PassGuardLoginController.getCurrentUser());//this restricts the current user to only accessing their data
+			pstmt.setString(1, PassGuardLoginController.getCurrentUser());//this restricts the current user to only accessing their data
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AccountNames.add(rs.getString(SQLiteContract.UserInfo.COLUMN_ACCOUNT));
@@ -172,10 +182,15 @@ public class SQLiteHelper {
 		
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_USERNAME)){
+			
 					
 					pstmt.setString(1, AccountName);					
 					ResultSet rs = pstmt.executeQuery();
-					username = rs.getString(SQLiteContract.UserInfo.COLUMN_USERNAME);
+					username = 
+							(String) StreamHelper.readFromByteArray(
+							AESHelper.decryptPBKDF2_AES(
+							StreamHelper.toByteArray( 
+							rs.getString(SQLiteContract.UserInfo.COLUMN_USERNAME)), PassGuardLoginController.getCurrentUser()));
 					
 		}catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "Requested Username could not be retrieved from the UserInfo Table");
@@ -208,7 +223,11 @@ public class SQLiteHelper {
 
 			pstmt.setString(1, AccountName);
 			ResultSet rs = pstmt.executeQuery();
-			password = rs.getString(SQLiteContract.UserInfo.COLUMN_PASSWORD);
+			password = 
+					(String) StreamHelper.readFromByteArray(
+							AESHelper.decryptPBKDF2_AES(
+							StreamHelper.toByteArray( 
+							rs.getString(SQLiteContract.UserInfo.COLUMN_PASSWORD)), PassGuardLoginController.getCurrentUser()));
 			
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "Requested password could not be retrieved from the UserInfo Table");
@@ -242,8 +261,12 @@ public class SQLiteHelper {
 
 			pstmt.setString(1, AccountName);
 			ResultSet rs = pstmt.executeQuery();
-			notes = rs.getString(SQLiteContract.UserInfo.COLUMN_NOTES);
-			
+			notes =
+					(String) StreamHelper.readFromByteArray(
+					AESHelper.decryptPBKDF2_AES(
+					StreamHelper.toByteArray( 
+					rs.getString(SQLiteContract.UserInfo.COLUMN_NOTES)), PassGuardLoginController.getCurrentUser()));
+
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "Requested notes could not be retrieved from the UserInfo Table");
 			LOGGER.log(Level.SEVERE, e.getMessage());
@@ -267,11 +290,14 @@ public class SQLiteHelper {
 				"UPDATE " + SQLiteContract.UserInfo.TABLE_NAME + 
 				" SET " + SQLiteContract.UserInfo.COLUMN_PASSWORD +" = ? WHERE " 
 						+ SQLiteContract.UserInfo.COLUMN_ACCOUNT + " = ?";
+		
+		
+        String encryptedPassword = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(newPassword), PassGuardLoginController.getCurrentUser()));
  
         try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
                 PreparedStatement pstmt = conn.prepareStatement(SQL_UPDATE_PASSWORD)) {
         	
-            pstmt.setString(1, newPassword);
+            pstmt.setString(1, encryptedPassword);
             pstmt.setString(2, AccountName);
             pstmt.executeUpdate();
             
@@ -293,6 +319,7 @@ public class SQLiteHelper {
     	String SQL_DELETE_ACCOUNT = 
     			"DELETE FROM " + SQLiteContract.UserInfo.TABLE_NAME + 
 				" WHERE " + SQLiteContract.UserInfo.COLUMN_ACCOUNT + " = ?";
+    	
     	
     	 try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
                  PreparedStatement pstmt = conn.prepareStatement(SQL_DELETE_ACCOUNT)) {
@@ -324,7 +351,7 @@ public class SQLiteHelper {
     	 try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
                  PreparedStatement pstmt = conn.prepareStatement(SQL_DELETE_ACCOUNT)) {
          	
-             pstmt.setInt(1, PassGuardLoginController.getCurrentUser());
+             pstmt.setString(1, PassGuardLoginController.getCurrentUser());
              pstmt.executeUpdate();
              
          } catch (SQLException e) {
