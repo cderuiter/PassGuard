@@ -22,7 +22,7 @@ import sqlite.SQLitePassGuardLoginHelper;
 
 public class PassGuardLoginController implements Initializable {
 	
-	public static String currentUserID;
+	public static int currentUserID;
 
     @FXML
     private Button loginButton;
@@ -41,7 +41,7 @@ public class PassGuardLoginController implements Initializable {
         if(validateLogin(username, password)){ //if the username and password are correct, then go to main UI
             PassGuardMainController mainUI = new PassGuardMainController();
             try {
-                currentUserID = SQLitePassGuardLoginHelper.getPassword(username); //gets the currentUserID for the current user
+                currentUserID = SQLitePassGuardLoginHelper.getUserID(username); //gets the currentUserID for the current user
                 mainUI.start();
 		Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
@@ -122,7 +122,7 @@ public class PassGuardLoginController implements Initializable {
      * 
      */
     
-    public static void setCurrentUser(String UserID) {
+    public static void setCurrentUser(int UserID) {
     	currentUserID = UserID;	
     }
     
@@ -134,7 +134,7 @@ public class PassGuardLoginController implements Initializable {
      * @return currentUserID - the current user's UserID/Primary Key
      * 
      */
-    public static String getCurrentUser() {
+    public static int getCurrentUser() {
     	return currentUserID;
     	
     }
