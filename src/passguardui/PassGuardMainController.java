@@ -186,10 +186,10 @@ public class PassGuardMainController implements Initializable {
     
     @FXML
     private void handleSearchAccountButton(){
-        String searchedAccount = searchAccountTextField.getText().toLowerCase().trim();
-        List<String> accountColumnData = new ArrayList<>();
+        String searchedAccount = searchAccountTextField.getText();
+        List<String> accountColumnData = new ArrayList();
         for(AccountInfo data : accountTable.getItems()){
-            accountColumnData.add(accountColumn.getCellObservableValue(data).getValue().toLowerCase().trim());
+            accountColumnData.add(accountColumn.getCellObservableValue(data).getValue());
         }
         int index = accountColumnData.indexOf(searchedAccount); //index = -1 if that string is not in the column
         accountTable.getSelectionModel().select(index, accountColumn);
