@@ -41,7 +41,8 @@ public class PassGuardLoginController implements Initializable {
         if(validateLogin(username, password)){ //if the username and password are correct, then go to main UI
             PassGuardMainController mainUI = new PassGuardMainController();
             try {
-                currentUserID = SQLitePassGuardLoginHelper.getPassword(username); //gets the currentUserID for the current user
+                currentUserID = SQLitePassGuardLoginHelper.getEncryptedPassword(username);
+                System.out.println(currentUserID);
                 mainUI.start();
 		Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();

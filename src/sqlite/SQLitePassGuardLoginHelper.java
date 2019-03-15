@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+import crypto.AESHelper;
+import crypto.StreamHelper;
 import logger.LoggerSetup;
+import passguardui.PassGuardLoginController;
 
 /**
  * This class contains the method to create and interact with the LoginInfo table
@@ -84,11 +86,13 @@ public class SQLitePassGuardLoginHelper {
         		+ SQLiteContract.LoginInfo.COLUMN_USERNAME + ","
         		+ SQLiteContract.LoginInfo.COLUMN_PASSWORD
         		+ ") VALUES(?,?)";
+        
+        String encryptedPassword = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(Password), UserName));
  
         try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
         	PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_LOGININFO)) {
             pstmt.setString(1, UserName);
-            pstmt.setString(2, Password);
+            pstmt.setString(2, encryptedPassword );
             pstmt.executeUpdate();
         } catch (SQLException e) {
         	LOGGER.log(Level.SEVERE, "Entry was not inserted into the table");
@@ -194,7 +198,36 @@ public class SQLitePassGuardLoginHelper {
 
 			pstmt.setString(1, UserName);
 			ResultSet rs = pstmt.executeQuery();
-			password = rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD);
+			password = 
+					(String) StreamHelper.readFromByteArray(
+							AESHelper.decryptPBKDF2_AES(
+							StreamHelper.toByteArray( 
+							rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD)), SQLitePassGuardLoginHelper.getUsername(UserName)));
+					
+			
+		} catch (SQLException e) {
+			LOGGER.log(Level.WARNING, "Requested password could not be retrieved from the LoginInfo Table");
+			LOGGER.log(Level.WARNING, e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		return password;
+	}
+	
+	public static String getEncryptedPassword(String UserName) {
+		String password = null;
+		
+		String SQL_GET_PASSWORD = 
+				"SELECT " + SQLiteContract.LoginInfo.COLUMN_PASSWORD + 
+				" FROM " + SQLiteContract.LoginInfo.TABLE_NAME + 
+				" WHERE " + SQLiteContract.LoginInfo.COLUMN_USERNAME + " = ?";
+		
+		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
+				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_PASSWORD)) {
+
+			pstmt.setString(1, UserName);
+			ResultSet rs = pstmt.executeQuery();
+			password = 	rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD);
+					
 			
 		} catch (SQLException e) {
 			LOGGER.log(Level.WARNING, "Requested password could not be retrieved from the LoginInfo Table");
