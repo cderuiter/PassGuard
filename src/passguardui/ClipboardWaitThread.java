@@ -15,11 +15,15 @@ import java.awt.datatransfer.StringSelection;
  */
 public class ClipboardWaitThread extends Thread{
     
+    static boolean copyFlag = false;
+    
     @Override
     public void run(){
-           
+        
+        copyFlag = true;
+        
         try {
-            Thread.sleep(10000);
+            Thread.sleep(12000);
         } catch (InterruptedException e) {
             
         } 
@@ -27,6 +31,8 @@ public class ClipboardWaitThread extends Thread{
         java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection emptySelection = new StringSelection("");
         clipboard.setContents(emptySelection, emptySelection);
+        
+        copyFlag = false;
     }
     
 }

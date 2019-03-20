@@ -5,6 +5,9 @@
  */
 package passguardui;
 
+import java.awt.HeadlessException;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 
@@ -34,7 +39,7 @@ import javafx.stage.Modality;
  */
 public class PassGuardMainController implements Initializable {
 
-    private final static ObservableList<AccountInfo> allAccounts = FXCollections.observableArrayList();
+    private static ObservableList<AccountInfo> allAccounts = FXCollections.observableArrayList();
     
     @FXML
     private TextField searchAccountTextField;
@@ -48,6 +53,25 @@ public class PassGuardMainController implements Initializable {
     private Button retrieveAccountButton;
     @FXML
     private Button removeAccountButton;
+    
+    @FXML
+    private Menu editMenuButton;
+    
+    @FXML
+    private MenuItem addAccount;
+    @FXML
+    private MenuItem editAccount;
+    @FXML
+    private MenuItem retrieveAccount;
+    @FXML
+    private MenuItem removeAccount;
+    @FXML
+    private MenuItem close;
+    @FXML
+    private MenuItem logOut;
+    @FXML
+    private MenuItem about;
+    
     @FXML
     private TableView<AccountInfo> accountTable; 
     @FXML
@@ -64,9 +88,15 @@ public class PassGuardMainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("PassGuardMainFXML.fxml"));
         Scene scene = new Scene(root);
         
+        window.setOnCloseRequest((event) -> {
+            closeMenuItem(); 
+        });
+        
         window.setTitle("PassGuard");
         window.setScene(scene);
         window.show();
+        
+        
     }
     
     /**
@@ -76,11 +106,13 @@ public class PassGuardMainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //this function runs when the window is launched, puts all accounts from the database into the table
         SQLiteHelper.SQLLiteDatabaseConnection();
+        allAccounts = FXCollections.observableArrayList();
         accountColumn.setCellValueFactory(new PropertyValueFactory<>("account"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         notesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
         accountTable.setItems(getAccountsFromDB());
+        
         
     }
     
@@ -196,4 +228,81 @@ public class PassGuardMainController implements Initializable {
         accountTable.scrollTo(index);
     }
     
+    @FXML
+    private void closeMenuItem(){
+        if(ClipboardWaitThread.copyFlag){
+            try{
+                java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                StringSelection emptySelection = new StringSelection("");
+                clipboard.setContents(emptySelection, emptySelection);
+            }
+            catch(HeadlessException e){
+                    
+            }
+        }
+        Platform.exit();
+    }
+    
+    @FXML
+    private void handleEditMenuButton(){
+        ObservableList<AccountInfo> accountSelected = accountTable.getSelectionModel().getSelectedItems();
+        if(accountSelected.isEmpty()){
+            editAccount.setDisable(true);
+            removeAccount.setDisable(true);
+            retrieveAccount.setDisable(true);
+        }
+        else{
+            editAccount.setDisable(false);
+            removeAccount.setDisable(false);
+            retrieveAccount.setDisable(false);
+        }
+    }
+    
+    @FXML
+    private void handleLogoutMenuItem(){
+        
+        if(ClipboardWaitThread.copyFlag){
+            try{
+                java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                StringSelection emptySelection = new StringSelection("");
+                clipboard.setContents(emptySelection, emptySelection);
+            }
+            catch(HeadlessException e){
+                    
+            }
+        }
+        
+        Stage stage = (Stage) addAccountButton.getScene().getWindow();
+        stage.close();
+        
+        try{
+            Stage loginWindow = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("PassGuardLoginFXML.fxml").openStream());
+            Scene scene = new Scene(root);
+            loginWindow.setTitle("PassGuard Log-In");
+            loginWindow.setScene(scene);
+            loginWindow.show();
+        }
+        catch(IOException e){
+            
+        }
+        
+    }
+    
+    @FXML
+    private void handleAboutMenuButton(){
+        try{
+            Stage loginWindow = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = loader.load(getClass().getResource("PassGuardAboutFXML.fxml").openStream());
+            Scene scene = new Scene(root);
+            loginWindow.setTitle("About PassGuard");
+            loginWindow.setScene(scene);
+            loginWindow.show();
+        }
+        catch(IOException e){
+            
+        }
+    }
 }

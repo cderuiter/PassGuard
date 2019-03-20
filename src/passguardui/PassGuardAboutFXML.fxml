@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="194.0" prefWidth="322.0" style="-fx-background-color: #f0f8ff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1">
+   <children>
+      <Label layoutX="111.0" layoutY="14.0" text="PassGuard v1.0" AnchorPane.topAnchor="10.0" />
+      <TextArea editable="false" layoutX="15.0" layoutY="41.0" prefHeight="151.0" prefWidth="291.0" text="This software was written as a collaborative effort of five CSI 2999 students&#10;&#10;Tools and Libraries: &#10;   JavaFX Scene Builder 10.0.0&#10;   SQLite JDBC Driver v3.27.2&#10;&#10;Oakland University SECS Winter 2019" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="32.0" />
+   </children>
+</AnchorPane>
