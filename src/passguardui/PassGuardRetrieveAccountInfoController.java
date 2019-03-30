@@ -8,12 +8,12 @@ package passguardui;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import javafx.application.Platform;
+//import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ClipboardContent;
+//import javafx.scene.input.ClipboardContent;
 //import javafx.scene.input.Clipboard;
 //import javafx.scene.input.ClipboardContent;
 

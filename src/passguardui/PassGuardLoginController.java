@@ -42,13 +42,12 @@ public class PassGuardLoginController implements Initializable {
             PassGuardMainController mainUI = new PassGuardMainController();
             try {
                 currentUserID = SQLitePassGuardLoginHelper.getEncryptedPassword(username);
-                System.out.println(currentUserID);
                 mainUI.start();
 		Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
             }
             catch(Exception e){
-                Platform.exit();
+                
             }  
         }
         else{//if the credentials are not correct, give incorrect username/password prompt
@@ -63,7 +62,7 @@ public class PassGuardLoginController implements Initializable {
             createAccount.start();
         }
         catch(Exception e){
-            Platform.exit();
+            
         }
     }
     
@@ -86,7 +85,7 @@ public class PassGuardLoginController implements Initializable {
             window.show();
         }
         catch(IOException e){
-            Platform.exit();
+            
         }
     }
     

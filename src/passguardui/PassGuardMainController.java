@@ -27,9 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 
 /**
@@ -56,7 +60,6 @@ public class PassGuardMainController implements Initializable {
     
     @FXML
     private Menu editMenuButton;
-    
     @FXML
     private MenuItem addAccount;
     @FXML
@@ -73,6 +76,17 @@ public class PassGuardMainController implements Initializable {
     private MenuItem about;
     
     @FXML
+    private ContextMenu tableRightClickMenu; //right click on table
+    @FXML
+    private MenuItem addEntryRC;
+    @FXML
+    private MenuItem editEntryRC; //right click on table
+    @FXML
+    private MenuItem retrieveEntryRC; //right click on table
+    @FXML
+    private MenuItem removeEntryRC; //right click on table
+   
+    @FXML
     private TableView<AccountInfo> accountTable; 
     @FXML
     private TableColumn<AccountInfo, String> accountColumn; 
@@ -83,6 +97,7 @@ public class PassGuardMainController implements Initializable {
     @FXML
     private TableColumn<AccountInfo, String> notesColumn; 
     
+    
     public void start() throws Exception{
         Stage window = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("PassGuardMainFXML.fxml"));
@@ -91,6 +106,7 @@ public class PassGuardMainController implements Initializable {
         window.setOnCloseRequest((event) -> {
             closeMenuItem(); 
         });
+        
         
         window.setTitle("PassGuard");
         window.setScene(scene);
@@ -112,7 +128,6 @@ public class PassGuardMainController implements Initializable {
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         notesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
         accountTable.setItems(getAccountsFromDB());
-        
         
     }
     
@@ -303,6 +318,31 @@ public class PassGuardMainController implements Initializable {
         }
         catch(IOException e){
             
+        }
+    }
+    
+    @FXML
+    private void handleTableRightClick(MouseEvent mouseClick){
+        try{
+            if(mouseClick.getButton() == MouseButton.SECONDARY){
+                ObservableList<AccountInfo> accountSelected = accountTable.getSelectionModel().getSelectedItems();
+                if(accountSelected.isEmpty()){
+                    addEntryRC.setDisable(false);
+                    editEntryRC.setDisable(true);
+                    removeEntryRC.setDisable(true);
+                    retrieveEntryRC.setDisable(true);
+                }
+                else{
+                    addEntryRC.setDisable(true);
+                    editEntryRC.setDisable(false);
+                    removeEntryRC.setDisable(false);
+                    retrieveEntryRC.setDisable(false);
+                }
+                tableRightClickMenu.show(tableRightClickMenu, mouseClick.getScreenX(), mouseClick.getScreenY());
+            }
+        }
+        catch(Exception e){
+                    
         }
     }
 }
