@@ -308,6 +308,71 @@ public class SQLiteHelper {
         }
     }
 	
+
+	/**
+	 * Changes the stored Username for a specified account in the SQLite Database 
+	 * 
+	 * @param AccountName - name of the account that corresponds to the password being changed 
+	 * @param newUsername - new username for the specified account
+	 * 
+	 */
+	public static void updateUsername(String AccountName, String newUsername) {
+        
+		String SQL_UPDATE_PASSWORD = 
+				"UPDATE " + SQLiteContract.UserInfo.TABLE_NAME + 
+				" SET " + SQLiteContract.UserInfo.COLUMN_USERNAME +" = ? WHERE " 
+						+ SQLiteContract.UserInfo.COLUMN_ACCOUNT + " = ?";
+		
+		
+        String encryptedUsername = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(newUsername), PassGuardLoginController.getCurrentUser()));
+ 
+        try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
+                PreparedStatement pstmt = conn.prepareStatement(SQL_UPDATE_PASSWORD)) {
+        	
+            pstmt.setString(1, encryptedUsername);
+            pstmt.setString(2, AccountName);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	LOGGER.log(Level.SEVERE, "Username was not updated in the UserInfo Table");
+			LOGGER.log(Level.SEVERE, e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+	
+	/**
+	 * Changes the stored Notes for a specified account in the SQLite Database 
+	 * 
+	 * @param AccountName - name of the account that corresponds to the password being changed 
+	 * @param newNotes - new notes for the specified account
+	 * 
+	 */
+	public static void updateNotes(String AccountName, String newNotes) {
+        
+		String SQL_UPDATE_PASSWORD = 
+				"UPDATE " + SQLiteContract.UserInfo.TABLE_NAME + 
+				" SET " + SQLiteContract.UserInfo.COLUMN_NOTES +" = ? WHERE " 
+						+ SQLiteContract.UserInfo.COLUMN_ACCOUNT + " = ?";
+		
+		
+        String encryptedNotes = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(newNotes), PassGuardLoginController.getCurrentUser()));
+ 
+        try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
+                PreparedStatement pstmt = conn.prepareStatement(SQL_UPDATE_PASSWORD)) {
+        	
+            pstmt.setString(1, encryptedNotes);
+            pstmt.setString(2, AccountName);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	LOGGER.log(Level.SEVERE, "Notes were not updated in the UserInfo Table");
+			LOGGER.log(Level.SEVERE, e.getMessage());
+            System.out.println(e.getMessage());
+        }
+    }
+	
+	
+	
 	/**
      * Deletes a specific account's information from the SQLite Database
      *
