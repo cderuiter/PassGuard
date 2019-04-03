@@ -24,6 +24,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import static passguardui.PassGuardLogin.iconPath;
 import passwordgenerator.PasswordGenerator;
 
 /**
@@ -60,7 +62,8 @@ public class PassGuardAddAccountController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("PassGuardAddAccountFXML.fxml"));
         Scene scene = new Scene(root);
         
-        
+        Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+        window.getIcons().add(icon);
         
         window.initModality(Modality.APPLICATION_MODAL); //makes sure the user will interact with this window
         window.setTitle("PassGuard: Add Account");
@@ -134,6 +137,8 @@ public class PassGuardAddAccountController implements Initializable {
             Scene scene = new Scene(root);
             PopUpController popupWindow = (PopUpController) loader.getController();
             popupWindow.setErrorLabel(message);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.getIcons().add(icon);
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

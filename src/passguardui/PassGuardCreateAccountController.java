@@ -22,6 +22,8 @@ import sqlite.SQLitePassGuardLoginHelper;
 
 import java.io.IOException;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
+import static passguardui.PassGuardLogin.iconPath;
 
 /**
  * FXML Controller class
@@ -54,6 +56,9 @@ public class PassGuardCreateAccountController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("PassGuardCreateAccountFXML.fxml"));
         Scene scene = new Scene(root);
         
+        Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+        window.getIcons().add(icon);
+        
         window.initModality(Modality.APPLICATION_MODAL); //makes sure the user will interact with this window
         window.setTitle("Create PassGuard Account");
         window.setScene(scene);
@@ -71,24 +76,26 @@ public class PassGuardCreateAccountController implements Initializable {
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         String retypePassword = retypePasswordField.getText();
+        
         if(!username.equals("") && !password.equals("") && !retypePassword.equals("")){
-            if(password.equals(retypePassword)){
-                SQLiteHelper.SQLLiteDatabaseConnection();
-                SQLiteHelper.createNewTable();
-                
-                
-                SQLitePassGuardLoginHelper.createNewAccountTable();
-                SQLitePassGuardLoginHelper.insertLoginInfo(username, password);
-                
-        
-                //should add username and password that the user inputs to the database
-        
-                Stage stage = (Stage) createAccountButton.getScene().getWindow();
-                stage.close();
+            if(SQLitePassGuardLoginHelper.validateNewUser(username)){
+                if(password.equals(retypePassword)){
+                    SQLiteHelper.SQLLiteDatabaseConnection();
+                    SQLiteHelper.createNewTable();
+
+                    SQLitePassGuardLoginHelper.createNewAccountTable();
+                    SQLitePassGuardLoginHelper.insertLoginInfo(username, password);
+
+                    Stage stage = (Stage) createAccountButton.getScene().getWindow();
+                    stage.close();
+                }
+                else{
+                    popUpError("Passwords are not matching!");
+                }
             }
             else{
-                popUpError("Passwords are not matching!");
-            }
+                popUpError("Username Already Exists");
+            } 
         }
         else{
             popUpError("Fill In Any Missing Fields!");
@@ -104,6 +111,8 @@ public class PassGuardCreateAccountController implements Initializable {
             Scene scene = new Scene(root);
             PopUpController popupWindow = (PopUpController) loader.getController();
             popupWindow.setErrorLabel(message);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.getIcons().add(icon);
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

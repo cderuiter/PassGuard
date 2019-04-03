@@ -15,8 +15,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import static passguardui.PassGuardLogin.iconPath;
 import sqlite.SQLitePassGuardLoginHelper;
 
 
@@ -79,6 +81,8 @@ public class PassGuardLoginController implements Initializable {
             Scene scene = new Scene(root);
             PopUpController popupWindow = (PopUpController) loader.getController();
             popupWindow.setErrorLabel(message);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.getIcons().add(icon);
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

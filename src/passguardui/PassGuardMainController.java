@@ -32,9 +32,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
+import static passguardui.PassGuardLogin.iconPath;
 
 /**
  * FXML Controller class
@@ -107,6 +109,8 @@ public class PassGuardMainController implements Initializable {
             closeMenuItem(); 
         });
         
+        Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+        window.getIcons().add(icon);
         
         window.setTitle("PassGuard");
         window.setScene(scene);
@@ -170,6 +174,8 @@ public class PassGuardMainController implements Initializable {
             Scene scene = new Scene(root);
             PassGuardEditAccountInfoController editAccountInfoWindow = (PassGuardEditAccountInfoController) loader.getController();
             editAccountInfoWindow.setCurrentInfo(accountName, username, password, notes);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.getIcons().add(icon);
             window.setTitle("Edit Account Information");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);
@@ -217,6 +223,8 @@ public class PassGuardMainController implements Initializable {
             Scene scene = new Scene(root);
             PassGuardRetrieveAccountInfoController accountInfoWindow = (PassGuardRetrieveAccountInfoController) loader.getController();
             accountInfoWindow.setInfo(accountName, username, password, notes);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.getIcons().add(icon);
             window.setTitle("Account Information");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);
@@ -312,6 +320,8 @@ public class PassGuardMainController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("PassGuardAboutFXML.fxml").openStream());
             Scene scene = new Scene(root);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            loginWindow.getIcons().add(icon);
             loginWindow.setTitle("About PassGuard");
             loginWindow.setScene(scene);
             loginWindow.show();
@@ -333,7 +343,7 @@ public class PassGuardMainController implements Initializable {
                     retrieveEntryRC.setDisable(true);
                 }
                 else{
-                    addEntryRC.setDisable(true);
+                    addEntryRC.setDisable(false);
                     editEntryRC.setDisable(false);
                     removeEntryRC.setDisable(false);
                     retrieveEntryRC.setDisable(false);
