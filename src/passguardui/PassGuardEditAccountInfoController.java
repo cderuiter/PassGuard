@@ -63,13 +63,13 @@ public class PassGuardEditAccountInfoController implements Initializable {
         SQLiteHelper.SQLLiteDatabaseConnection();
         
         if(!currentUsername.equals(newUsername)){
-            
+            SQLiteHelper.updateUsername(currentAccountName, newUsername);
         }
         if(!currentPassword.equals(newPassword)){
             SQLiteHelper.updatePassword(currentAccountName, newPassword);
         }
         if(!currentNotes.equals(newNotes)){
-            
+            SQLiteHelper.updateNotes(currentAccountName, newNotes);
         }
         
         Stage stage = (Stage) updateButton.getScene().getWindow();
