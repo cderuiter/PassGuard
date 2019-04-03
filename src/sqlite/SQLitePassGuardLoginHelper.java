@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -267,5 +268,25 @@ public class SQLitePassGuardLoginHelper {
 		return UserNames;
 	}
 	
-
+	/**
+	 * Checks to make sure the new username attempted does not match an existing username  
+	 * 
+	 * @return true - new username is valid 
+	 * @return false - new username is not valid becuase the username already exists. 
+	 * 
+	 * 
+	 *
+	 */
+	public static boolean validateNewUser(String newUser) {
+		ArrayList<String> currentUsernames = SQLitePassGuardLoginHelper.getAllLoginUserNames();
+		Iterator<String> userit = currentUsernames.iterator();
+		
+		while(userit.hasNext()) {
+			if (userit.next().equals((newUser))) {
+				return false;
+			}
+			}
+		
+		return true;
+	}
 }
