@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -212,6 +214,38 @@ public class StreamHelper {
             b[i] = (byte) Integer.parseInt(tokens.get(i));
         }
         return b;
+    }
+
+    /**
+     * Produces a SHA-256 digest from the specified message.
+     *
+     * @param message the string to be digested
+     * @return        a SHA-256 digest produced from the message
+     */
+    public static String digest(String message) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.log(Level.SEVERE, "Unsupported digest algorithm. This should not have happened");
+            return null;
+        }
+        MessageDigest md2 = null;
+        try {
+            md2 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.log(Level.SEVERE, "Unsupported digest algorithm. This should not have happened");
+            return null;
+        }
+        byte[] hashedMessage = null;
+        hashedMessage = md.digest(writeToByteArray(message));
+        for (int i = 0; i < 10000; i++) {
+            if (i % 17 == 0) {
+                hashedMessage = md2.digest(hashedMessage);
+            }
+            hashedMessage = md.digest(hashedMessage);
+        }
+        return toByteString(hashedMessage);
     }
 
 }

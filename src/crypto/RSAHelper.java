@@ -16,16 +16,11 @@ import logger.LoggerSetup;
 
 /**
  * Helper methods for RSA encryption and decryption.
- * TODO: JavaDoc
  *
  * @author Dimitri Lialios 03/01/2019
  */
 public class RSAHelper {
 
-    /**
-     * Makes available a logger whose output is written to a file that is the
-     * same name as this class.
-     */
     private static final Logger LOGGER = LoggerSetup.initLogger(RSAHelper.class.getName(),
             RSAHelper.class.getSimpleName() + ".log");
 

@@ -28,8 +28,8 @@ public class SQLiteHelper {
      * Makes available a logger whose output is written to a file that is the
      * same name as this class.
      */
-    private static final Logger LOGGER = LoggerSetup.initLogger(SQLitePassGuardLoginHelper.class.getName(),
-    		SQLitePassGuardLoginHelper.class.getSimpleName() + ".log");
+    private static final Logger LOGGER = LoggerSetup.initLogger(SQLiteHelper.class.getName(),
+    		SQLiteHelper.class.getSimpleName() + ".log");
 	
 
 
