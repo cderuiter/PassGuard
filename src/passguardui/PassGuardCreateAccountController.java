@@ -59,6 +59,7 @@ public class PassGuardCreateAccountController implements Initializable {
         Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
         window.getIcons().add(icon);
         
+        window.resizableProperty().setValue(false); //makes it so you can not maximize
         window.initModality(Modality.APPLICATION_MODAL); //makes sure the user will interact with this window
         window.setTitle("Create PassGuard Account");
         window.setScene(scene);
@@ -113,6 +114,8 @@ public class PassGuardCreateAccountController implements Initializable {
             popupWindow.setErrorLabel(message);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
             window.getIcons().add(icon);
+            
+            window.resizableProperty().setValue(false); //makes it so you can not maximize
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="366.0" prefWidth="583.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardRetrieveAccountInfoController">
+<AnchorPane id="AnchorPane" prefHeight="269.0" prefWidth="556.0" style="-fx-background-color: #edeff2;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardRetrieveAccountInfoController">
    <children>
-      <Label layoutX="25.0" layoutY="38.0" text="Account Name:">
+      <Label layoutX="23.0" layoutY="22.0" text="Account Name:">
          <font>
-            <Font size="18.5" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="103.0" text="Username:">
+      <Label layoutX="25.0" layoutY="67.0" text="Username:">
          <font>
-            <Font size="18.5" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="28.0" layoutY="174.0" text="Password:">
+      <Label layoutX="27.0" layoutY="114.0" text="Password:">
          <font>
-            <Font size="18.5" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="247.0" text="Notes:">
+      <Label layoutX="26.0" layoutY="156.0" text="Notes:">
          <font>
-            <Font size="18.5" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <Button fx:id="okButton" layoutX="27.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleOKButton" prefHeight="42.0" prefWidth="113.0" text="OK" />
-      <Button fx:id="copyButton" layoutX="477.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleCopyButton" prefHeight="39.0" prefWidth="87.0" text="Copy" />
-      <TextArea fx:id="notesText" layoutX="172.0" layoutY="240.0" prefHeight="109.0" prefWidth="393.0" wrapText="true" />
-      <TextField fx:id="accountNameText" layoutX="172.0" layoutY="32.0" prefHeight="39.0" prefWidth="393.0" />
-      <TextField fx:id="usernameText" layoutX="172.0" layoutY="97.0" prefHeight="39.0" prefWidth="393.0" />
-      <TextField fx:id="passwordText" layoutX="172.0" layoutY="168.0" prefHeight="39.0" prefWidth="294.0" />
+      <Button fx:id="okButton" layoutX="23.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleOKButton" prefHeight="25.0" prefWidth="87.0" text="OK" />
+      <Button fx:id="copyButton" layoutX="445.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleCopyButton" prefHeight="19.0" prefWidth="87.0" text="Copy" />
+      <TextArea fx:id="notesText" layoutX="140.0" layoutY="156.0" prefHeight="90.0" prefWidth="393.0" wrapText="true" />
+      <TextField fx:id="accountNameText" layoutX="140.0" layoutY="19.0" prefHeight="19.0" prefWidth="393.0" />
+      <TextField fx:id="usernameText" layoutX="140.0" layoutY="64.0" prefHeight="19.0" prefWidth="393.0" />
+      <TextField fx:id="passwordText" layoutX="140.0" layoutY="111.0" prefHeight="19.0" prefWidth="294.0" />
    </children>
 </AnchorPane>

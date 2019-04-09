@@ -33,6 +33,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -105,6 +107,8 @@ public class PassGuardMainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("PassGuardMainFXML.fxml"));
         Scene scene = new Scene(root);
         
+        window.resizableProperty().setValue(false); //makes it so you can not maximize
+        
         window.setOnCloseRequest((event) -> {
             closeMenuItem(); 
         });
@@ -175,6 +179,7 @@ public class PassGuardMainController implements Initializable {
             PassGuardEditAccountInfoController editAccountInfoWindow = (PassGuardEditAccountInfoController) loader.getController();
             editAccountInfoWindow.setCurrentInfo(accountName, username, password, notes);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            window.resizableProperty().setValue(false); //makes it so you can not maximize
             window.getIcons().add(icon);
             window.setTitle("Edit Account Information");
             window.initModality(Modality.APPLICATION_MODAL);
@@ -225,6 +230,7 @@ public class PassGuardMainController implements Initializable {
             accountInfoWindow.setInfo(accountName, username, password, notes);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
             window.getIcons().add(icon);
+            window.resizableProperty().setValue(false); //makes it so you can not maximize
             window.setTitle("Account Information");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);
@@ -237,6 +243,13 @@ public class PassGuardMainController implements Initializable {
             //is there any need to do anything here, like give a pop up?
         }
         
+    }
+    
+    @FXML
+    private void handleSearchEnterPress(KeyEvent keyEvent){
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            handleSearchAccountButton();
+        }
     }
     
     @FXML
@@ -295,7 +308,7 @@ public class PassGuardMainController implements Initializable {
             }
         }
         
-        Stage stage = (Stage) addAccountButton.getScene().getWindow();
+        Stage stage = (Stage) searchAccountButton.getScene().getWindow();
         stage.close();
         
         try{
@@ -303,6 +316,7 @@ public class PassGuardMainController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("PassGuardLoginFXML.fxml").openStream());
             Scene scene = new Scene(root);
+            loginWindow.resizableProperty().setValue(false); //makes it so you can not maximize
             loginWindow.setTitle("PassGuard Log-In");
             loginWindow.setScene(scene);
             loginWindow.show();
@@ -321,6 +335,7 @@ public class PassGuardMainController implements Initializable {
             Parent root = loader.load(getClass().getResource("PassGuardAboutFXML.fxml").openStream());
             Scene scene = new Scene(root);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            loginWindow.resizableProperty().setValue(false); //makes it so you can not maximize
             loginWindow.getIcons().add(icon);
             loginWindow.setTitle("About PassGuard");
             loginWindow.setScene(scene);

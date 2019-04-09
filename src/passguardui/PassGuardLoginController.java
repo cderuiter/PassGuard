@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static passguardui.PassGuardLogin.iconPath;
@@ -68,6 +70,13 @@ public class PassGuardLoginController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleEnterPress(KeyEvent keyEvent){
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            handleLogInButton();
+        }
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) { //use this function if there is anything to load automatically upon startup
         
@@ -83,6 +92,7 @@ public class PassGuardLoginController implements Initializable {
             popupWindow.setErrorLabel(message);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
             window.getIcons().add(icon);
+            window.resizableProperty().setValue(false); //makes it so you can not maximize
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

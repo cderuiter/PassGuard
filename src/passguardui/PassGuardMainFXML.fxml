@@ -9,12 +9,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="450.0" maxWidth="800.0" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardMainController">
+<BorderPane maxHeight="457.0" maxWidth="600.0" minHeight="450.0" minWidth="600.0" prefHeight="457.0" prefWidth="600.0" style="-fx-background-color: #edeff2;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="passguardui.PassGuardMainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -40,13 +39,13 @@
         </menus>
       </MenuBar>
    </top>
-   <left>
+   <center>
       <VBox prefHeight="374.0" prefWidth="525.0" BorderPane.alignment="CENTER">
          <children>
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="searchAccountTextField" prefHeight="39.0" prefWidth="338.0" promptText="Search for Account Name..." />
-                  <Button fx:id="searchAccountButton" mnemonicParsing="false" onAction="#handleSearchAccountButton" prefHeight="42.0" prefWidth="171.0" text="Search" />
+                  <TextField fx:id="searchAccountTextField" onKeyPressed="#handleSearchEnterPress" prefHeight="25.0" prefWidth="425.0" promptText="Search for Account Name..." />
+                  <Button fx:id="searchAccountButton" mnemonicParsing="false" onAction="#handleSearchAccountButton" prefHeight="18.0" prefWidth="153.0" text="Search" />
                </children>
                <padding>
                   <Insets bottom="8.0" right="8.0" top="8.0" />
@@ -55,12 +54,12 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TableView fx:id="accountTable" onMouseClicked="#handleTableRightClick" prefWidth="504.0">
+            <TableView fx:id="accountTable" maxWidth="590.0" onMouseClicked="#handleTableRightClick" prefWidth="590.0">
               <columns>
-                <TableColumn fx:id="accountColumn" prefWidth="119.99999713897705" resizable="false" text="Account" />
-                <TableColumn fx:id="usernameColumn" prefWidth="124.66671752929688" resizable="false" text="Username" />
-                  <TableColumn fx:id="passwordColumn" prefWidth="139.3332977294922" resizable="false" text="Password" />
-                  <TableColumn fx:id="notesColumn" minWidth="0.0" prefWidth="134.00003051757812" resizable="false" text="Notes" />
+                <TableColumn fx:id="accountColumn" prefWidth="146.25" resizable="false" text="Account" />
+                <TableColumn fx:id="usernameColumn" prefWidth="146.25" resizable="false" text="Username" />
+                  <TableColumn fx:id="passwordColumn" prefWidth="146.25" resizable="false" text="Password" />
+                  <TableColumn fx:id="notesColumn" prefWidth="146.25" resizable="false" text="Notes" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -75,21 +74,20 @@
                     </items>
                   </ContextMenu>
                </contextMenu>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </TableView>
          </children>
          <padding>
-            <Insets bottom="10.0" left="8.0" />
+            <Insets bottom="10.0" left="10.0" right="8.0" />
          </padding>
       </VBox>
-   </left>
-   <right>
-      <AnchorPane prefHeight="411.0" prefWidth="264.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="addAccountButton" layoutX="33.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleAddAccountButton" prefHeight="39.0" prefWidth="200.0" text="Add Entry" />
-            <Button fx:id="retrieveAccountButton" layoutX="33.0" layoutY="231.0" mnemonicParsing="false" onAction="#handleRetrieveAccountInfoButton" prefHeight="39.0" prefWidth="201.0" text="Retrieve Entry Info" />
-            <Button fx:id="removeAccountButton" layoutX="32.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveAccountButton" prefHeight="39.0" prefWidth="200.0" text="Remove Entry" />
-            <Button fx:id="editAccountButton" layoutX="32.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleEditAccountButton" prefHeight="39.0" prefWidth="200.0" text="Edit Entry" />
-         </children>
-      </AnchorPane>
-   </right>
+   </center>
+   <padding>
+      <Insets bottom="2.0" />
+   </padding>
 </BorderPane>

@@ -65,6 +65,8 @@ public class PassGuardAddAccountController implements Initializable {
         Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
         window.getIcons().add(icon);
         
+        window.resizableProperty().setValue(false); //makes it so you can not maximize
+        
         window.initModality(Modality.APPLICATION_MODAL); //makes sure the user will interact with this window
         window.setTitle("PassGuard: Add Account");
         window.setScene(scene);

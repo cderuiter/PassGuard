@@ -31,6 +31,8 @@ public class PassGuardLogin extends Application {
         
         Scene scene = new Scene(root);
         
+        window.resizableProperty().setValue(false); //makes it so you can not maximize
+        
         Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
         window.getIcons().add(icon);
         

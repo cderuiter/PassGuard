@@ -12,7 +12,7 @@
    <children>
       <AnchorPane layoutX="542.0" layoutY="66.0" prefHeight="395.0" prefWidth="353.0" style="-fx-background-color: #acd4f9;">
          <children>
-            <TextField fx:id="usernameInput" layoutX="47.0" layoutY="123.0" prefHeight="42.0" prefWidth="260.0" promptText="username">
+            <TextField fx:id="usernameInput" layoutX="47.0" layoutY="123.0" onKeyPressed="#handleEnterPress" prefHeight="42.0" prefWidth="260.0" promptText="username">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -20,7 +20,7 @@
                   <Font size="19.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordInput" layoutX="47.0" layoutY="206.0" prefHeight="42.0" prefWidth="260.0" promptText="password">
+            <PasswordField fx:id="passwordInput" layoutX="47.0" layoutY="206.0" onKeyPressed="#handleEnterPress" prefHeight="42.0" prefWidth="260.0" promptText="password">
                <font>
                   <Font size="19.0" />
                </font></PasswordField>
