@@ -141,6 +141,7 @@ public class PassGuardAddAccountController implements Initializable {
             popupWindow.setErrorLabel(message);
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
             window.getIcons().add(icon);
+            window.resizableProperty().setValue(false); //makes it so you can not maximize
             window.setTitle("Error");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);

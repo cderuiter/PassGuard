@@ -4,9 +4,9 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="194.0" prefWidth="322.0" style="-fx-background-color: #edeff2;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="358.0" style="-fx-background-color: #edeff2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="111.0" layoutY="14.0" text="PassGuard v1.0" AnchorPane.topAnchor="10.0" />
-      <TextArea editable="false" layoutX="15.0" layoutY="41.0" prefHeight="151.0" prefWidth="291.0" text="This software was written as a collaborative effort of five CSI 2999 students&#10;&#10;Tools and Libraries: &#10;   JavaFX Scene Builder 10.0.0&#10;   SQLite JDBC Driver v3.27.2&#10;&#10;Oakland University SECS Winter 2019" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="32.0" />
+      <Label layoutX="139.0" layoutY="6.0" text="PassGuard v1.0" AnchorPane.topAnchor="6.0" />
+      <TextArea editable="false" layoutX="5.0" layoutY="29.0" prefHeight="167.0" prefWidth="317.0" text="This software is a collaborative effort of five CSI-2999 students.&#10;&#10;Tools &amp; Libraries:&#10;   JDK 8u202&#10;   Launch4j 3.12&#10;   NetBeans IDE 8.2&#10;   Gluon Scene Builder 10.0.0&#10;   Xerial SQLite JDBC Driver 3.27.2&#10;&#10;Oakland University SECS Winter 2019" wrapText="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="29.0" />
    </children>
 </AnchorPane>
