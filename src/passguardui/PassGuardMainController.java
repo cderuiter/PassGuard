@@ -144,9 +144,13 @@ public class PassGuardMainController implements Initializable {
     }
     
     private static ObservableList<AccountInfo> getAccountsFromDB(){
+        
         ArrayList<String> myAccounts = SQLiteHelper.getAllAccounts();
+        
         for(String account : myAccounts){
-            allAccounts.add(new AccountInfo(account, "**********", "**********", "**********"));
+            String username = SQLiteHelper.getUsername(account);
+            String notes = SQLiteHelper.getNotes(account);
+            allAccounts.add(new AccountInfo(account, username, "**********", notes));
         }
         return allAccounts;
     }
@@ -184,7 +188,10 @@ public class PassGuardMainController implements Initializable {
             window.setTitle("Edit Account Information");
             window.initModality(Modality.APPLICATION_MODAL);
             window.setScene(scene);
-            window.show();
+            
+            window.showAndWait();
+            allAccounts = FXCollections.observableArrayList();
+            accountTable.setItems(getAccountsFromDB());
         }
         catch(IOException | RuntimeException e){
             
@@ -228,6 +235,7 @@ public class PassGuardMainController implements Initializable {
             Scene scene = new Scene(root);
             PassGuardRetrieveAccountInfoController accountInfoWindow = (PassGuardRetrieveAccountInfoController) loader.getController();
             accountInfoWindow.setInfo(accountName, username, password, notes);
+            
             Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
             window.getIcons().add(icon);
             window.resizableProperty().setValue(false); //makes it so you can not maximize

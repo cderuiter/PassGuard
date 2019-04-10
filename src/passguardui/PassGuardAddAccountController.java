@@ -79,7 +79,7 @@ public class PassGuardAddAccountController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //initialize the length Spinner
-        SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 20, 10); //min, max, default
+        SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 46, 20); //min, max, default
         this.lengthSpinner.setValueFactory(lengthFactory);
         
     }  
@@ -100,7 +100,7 @@ public class PassGuardAddAccountController implements Initializable {
                 SQLiteHelper.SQLLiteDatabaseConnection();
                 SQLiteHelper.insertInfo(AccountName, UserName, Password, Notes);
                 
-                PassGuardMainController.getAllAccounts().add(new AccountInfo(AccountName, "**********", "**********", "**********"));
+                PassGuardMainController.getAllAccounts().add(new AccountInfo(AccountName, UserName, "**********", Notes));
                 
                 Stage stage = (Stage) addButton.getScene().getWindow();
                 stage.close();
