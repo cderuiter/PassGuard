@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import crypto.StreamHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +47,7 @@ public class PassGuardLoginController implements Initializable {
         if(validateLogin(username, password)){ //if the username and password are correct, then go to main UI
             PassGuardMainController mainUI = new PassGuardMainController();
             try {
-                currentUserID = SQLitePassGuardLoginHelper.getEncryptedPassword(username);
+                currentUserID = StreamHelper.digest(SQLitePassGuardLoginHelper.getEncryptedPassword(username));
                 mainUI.start();
 		Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
@@ -118,7 +120,7 @@ public class PassGuardLoginController implements Initializable {
     
     private boolean validateLogin(String username, String password) {
     	ArrayList<String> Usernames = SQLitePassGuardLoginHelper.getAllLoginUserNames();
-    	if(Usernames.contains(username) && SQLitePassGuardLoginHelper.getPassword(username).equals(password)) {
+    	if(Usernames.contains(StreamHelper.digest(username)) && SQLitePassGuardLoginHelper.getPassword(username).equals(password)) {
             return true;
     	}
     	else{

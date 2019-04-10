@@ -88,12 +88,12 @@ public class SQLitePassGuardLoginHelper {
         		+ SQLiteContract.LoginInfo.COLUMN_PASSWORD
         		+ ") VALUES(?,?)";
         
-        String encryptedPassword = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(Password), UserName));
+        String encryptedPassword = StreamHelper.toByteString(AESHelper.encryptPBKDF2_AES(StreamHelper.writeToByteArray(Password), StreamHelper.digest(StreamHelper.digest(UserName))));
  
         try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
         	PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT_LOGININFO)) {
-            pstmt.setString(1, UserName);
-            pstmt.setString(2, encryptedPassword );
+            pstmt.setString(1, StreamHelper.digest(UserName)); 
+            pstmt.setString(2, encryptedPassword);
             pstmt.executeUpdate();
         } catch (SQLException e) {
         	LOGGER.log(Level.SEVERE, "Entry was not inserted into the table");
@@ -123,7 +123,7 @@ public class SQLitePassGuardLoginHelper {
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_USERNAME)){
 					
-					pstmt.setString(1, Username);					
+					pstmt.setString(1, StreamHelper.digest(Username));					
 					ResultSet rs = pstmt.executeQuery();
 					username = rs.getString(SQLiteContract.LoginInfo.COLUMN_USERNAME);
 					
@@ -161,7 +161,7 @@ public class SQLitePassGuardLoginHelper {
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_ID)){
 					
-					pstmt.setString(1, username);					
+					pstmt.setString(1, StreamHelper.digest(username));					
 					ResultSet rs = pstmt.executeQuery();
 					id = rs.getInt(SQLiteContract.LoginInfo._ID);
 					
@@ -197,13 +197,13 @@ public class SQLitePassGuardLoginHelper {
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_PASSWORD)) {
 
-			pstmt.setString(1, UserName);
+			pstmt.setString(1, StreamHelper.digest(UserName));
 			ResultSet rs = pstmt.executeQuery();
 			password = 
 					(String) StreamHelper.readFromByteArray(
 							AESHelper.decryptPBKDF2_AES(
 							StreamHelper.toByteArray( 
-							rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD)), SQLitePassGuardLoginHelper.getUsername(UserName)));
+							rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD)), StreamHelper.digest(StreamHelper.digest(UserName))));
 					
 			
 		} catch (SQLException e) {
@@ -225,7 +225,7 @@ public class SQLitePassGuardLoginHelper {
 		try (Connection conn = DriverManager.getConnection(SQLiteContract.URL);
 				PreparedStatement pstmt = conn.prepareStatement(SQL_GET_PASSWORD)) {
 
-			pstmt.setString(1, UserName);
+			pstmt.setString(1, StreamHelper.digest(UserName));
 			ResultSet rs = pstmt.executeQuery();
 			password = 	rs.getString(SQLiteContract.LoginInfo.COLUMN_PASSWORD);
 					
@@ -282,7 +282,7 @@ public class SQLitePassGuardLoginHelper {
 		Iterator<String> userit = currentUsernames.iterator();
 		
 		while(userit.hasNext()) {
-			if (userit.next().equals((newUser))) {
+			if (userit.next().equals((StreamHelper.digest(newUser)))) {
 				return false;
 			}
 			}
