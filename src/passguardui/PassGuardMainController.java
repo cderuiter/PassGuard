@@ -316,6 +316,8 @@ public class PassGuardMainController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Parent root = loader.load(getClass().getResource("PassGuardLoginFXML.fxml").openStream());
             Scene scene = new Scene(root);
+            Image icon = new Image(this.getClass().getResourceAsStream(iconPath));
+            loginWindow.getIcons().add(icon);
             loginWindow.resizableProperty().setValue(false); //makes it so you can not maximize
             loginWindow.setTitle("PassGuard Log-In");
             loginWindow.setScene(scene);
