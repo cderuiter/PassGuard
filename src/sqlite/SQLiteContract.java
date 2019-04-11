@@ -10,7 +10,7 @@ package sqlite;
  */
 public class SQLiteContract {
 	
-	public static final String URL = "jdbc:sqlite:C:PassGuard.db";
+	public static final String URL = "jdbc:sqlite:PassGuard.db";
 	
 	 private SQLiteContract() {
 	    }
